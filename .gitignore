@@ -1,0 +1,10 @@
+﻿# исходники и экспорты макетов в корне (не нужны сайту)
+/1280w*.png
+/390w*.png
+/photo*.png
+/mts_*.mp4
+# старые версии картинок
+/images/mts-id/
+/images/mts-id-profile/
+/images/vnutrennie-servisy/
+/images/internet-magazin/
