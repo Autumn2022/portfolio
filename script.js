@@ -210,3 +210,23 @@
   }), { threshold: 0.2 });
   vids.forEach(v => io.observe(v));
 })();
+
+// Лайтбокс: клик по картинке проекта открывает её крупнее поверх контента с затемнением фона.
+(() => {
+  const imgs = document.querySelectorAll('.pv2 .fig img');
+  if (!imgs.length) return;
+  const lb = document.createElement('div');
+  lb.className = 'lb';
+  lb.innerHTML = '<button class="lb__close" type="button" aria-label="Закрыть">\u00d7</button><img alt="">';
+  document.body.appendChild(lb);
+  const lbImg = lb.querySelector('img');
+  const open = src => { lbImg.src = src; lb.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+  const close = () => {
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(() => { if (!lb.classList.contains('is-open')) lbImg.removeAttribute('src'); }, 250);
+  };
+  imgs.forEach(img => img.addEventListener('click', () => open(img.currentSrc || img.src)));
+  lb.addEventListener('click', e => { if (e.target !== lbImg) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('is-open')) close(); });
+})();

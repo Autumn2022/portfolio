@@ -337,3 +337,35 @@ a.btn:hover{opacity:.85;transform:translateY(-1px)}
 .pv2 .sec--proj{margin-top:32px}
 
 .pv2 .nl-body p.muted-t .hl{color:var(--text)}
+
+/* серые под-списки в Discovery (нумерованный «Проблемы в работе с претензией», маркированный «Итог») */
+.pv2 .sub ol.ol-m,.pv2 .sub ul.ul-m{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px;color:var(--text-2);font-size:17px;line-height:24px}
+.pv2 .sub ol.ol-m{list-style:decimal}
+.pv2 .sub ul.ul-m{list-style:disc}
+.pv2 .sub ol.ol-m li::marker,.pv2 .sub ul.ul-m li::marker{color:var(--text-2)}
+
+/* сравнительная таблица «Что решено из проблем» */
+.pv2 .ctab-block{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%}
+.pv2 .ctab-wrap{width:100%;overflow-x:auto;background:#1d2023;border-radius:20px;-webkit-overflow-scrolling:touch}
+:root[data-theme="light"] .pv2 .ctab-wrap{background:#fff;box-shadow:inset 0 0 0 1px var(--border)}
+.pv2 .ctab{width:100%;min-width:640px;border-collapse:collapse;font-size:14px;line-height:20px;text-align:left}
+.pv2 .ctab th,.pv2 .ctab td{padding:12px 12px 12px 0;vertical-align:top}
+.pv2 .ctab thead th{color:var(--text-2);font-weight:400;padding-top:20px}
+.pv2 .ctab tbody tr{border-top:1px solid var(--border)}
+.pv2 .ctab th:first-child,.pv2 .ctab td:first-child{padding-left:32px}
+.pv2 .ctab td{color:var(--text)}
+.pv2 .ctab th:nth-child(1),.pv2 .ctab td:nth-child(1){width:26%}
+.pv2 .ctab th:nth-child(2),.pv2 .ctab td:nth-child(2){width:50%}
+.pv2 .ctab th:nth-child(3),.pv2 .ctab td:nth-child(3){width:24%}
+.pv2 .ctab-n{color:var(--text-2);margin-right:8px}
+.pv2 .ctab-cap{font-size:17px;line-height:24px;color:var(--text-2);text-align:center}
+
+/* Лайтбокс: увеличение картинок на страницах проектов */
+.pv2 .fig img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.85);opacity:0;visibility:hidden;transition:opacity .2s ease;cursor:zoom-out;-webkit-tap-highlight-color:transparent}
+.lb.is-open{opacity:1;visibility:visible}
+.lb img{max-width:min(1600px,96vw);max-height:94vh;width:auto;height:auto;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);transform:scale(.98);transition:transform .2s ease}
+.lb.is-open img{transform:scale(1)}
+.lb__close{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;cursor:pointer;border:0}
+.lb__close:hover{background:rgba(255,255,255,.22)}
+@media (prefers-reduced-motion:reduce){.lb,.lb img{transition:none}}
