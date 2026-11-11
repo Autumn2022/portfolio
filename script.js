@@ -211,7 +211,8 @@
   vids.forEach(v => io.observe(v));
 })();
 
-// Лайтбокс: клик по картинке проекта открывает её крупнее поверх контента с затемнением фона.
+// Лайтбокс: тап/клик по картинке проекта открывает её крупнее поверх контента с затемнением фона.
+// Отдельно обрабатываем касание (touch), т.к. мобильный Safari не всегда шлёт click по тапу на картинку.
 (() => {
   const imgs = document.querySelectorAll('.pv2 .fig img');
   if (!imgs.length) return;
@@ -220,13 +221,21 @@
   lb.innerHTML = '<button class="lb__close" type="button" aria-label="Закрыть">\u00d7</button><img alt="">';
   document.body.appendChild(lb);
   const lbImg = lb.querySelector('img');
-  const open = src => { lbImg.src = src; lb.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+  const open = src => { if (!src) return; lbImg.src = src; lb.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
   const close = () => {
     lb.classList.remove('is-open');
     document.body.style.overflow = '';
     setTimeout(() => { if (!lb.classList.contains('is-open')) lbImg.removeAttribute('src'); }, 250);
   };
-  imgs.forEach(img => img.addEventListener('click', () => open(img.currentSrc || img.src)));
-  lb.addEventListener('click', e => { if (e.target !== lbImg) close(); });
+  imgs.forEach(img => {
+    let sx = 0, sy = 0, moved = false;
+    img.addEventListener('touchstart', e => { const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; moved = false; }, { passive: true });
+    img.addEventListener('touchmove', e => { const t = e.changedTouches[0]; if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) moved = true; }, { passive: true });
+    img.addEventListener('touchend', e => { if (!moved) { e.preventDefault(); open(img.currentSrc || img.src); } }, { passive: false });
+    img.addEventListener('click', () => open(img.currentSrc || img.src));
+  });
+  // закрытие: тап/клик в любом месте оверлея
+  lb.addEventListener('click', close);
+  lb.addEventListener('touchend', e => { e.preventDefault(); close(); }, { passive: false });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('is-open')) close(); });
 })();
