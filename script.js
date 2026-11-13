@@ -239,3 +239,43 @@
   lb.addEventListener('touchend', e => { e.preventDefault(); close(); }, { passive: false });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('is-open')) close(); });
 })();
+
+// Контакты: копирование Telegram/почты в буфер по клику или тапу на иконку копирования.
+(() => {
+  const btns = document.querySelectorAll('.ccard__copy');
+  if (!btns.length) return;
+  const CHECK = '<svg class="ccard__copyicon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M8 16.5l5.5 5.5L24 11.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const copy = text => {
+    let ok = false;
+    // запасной способ: synchronously в момент жеста — работает в большинстве браузеров
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '-1000px'; ta.style.left = '-1000px'; ta.style.width = '1px'; ta.style.height = '1px';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      try { ta.setSelectionRange(0, text.length); } catch (e) {}
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (e) {}
+    // основной способ на https: современный Clipboard API
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        ok = true;
+        navigator.clipboard.writeText(text).catch(function () {});
+      }
+    } catch (e) {}
+    return ok;
+  };
+  btns.forEach(btn => {
+    const orig = btn.innerHTML;
+    const name = btn.getAttribute('data-name') || 'Скопировано';
+    let timer = null;
+    btn.addEventListener('click', () => {
+      if (!copy(btn.getAttribute('data-copy'))) return;
+      btn.classList.add('is-copied');
+      btn.innerHTML = CHECK;
+      btn.setAttribute('aria-label', name + ' скопирован');
+      clearTimeout(timer);
+      timer = setTimeout(() => { btn.classList.remove('is-copied'); btn.innerHTML = orig; btn.setAttribute('aria-label', 'Скопировать ' + name.toLowerCase()); }, 1400);
+    });
+  });
+})();
