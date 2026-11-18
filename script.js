@@ -279,3 +279,13 @@
     });
   });
 })();
+
+/* кнопка «наверх» — появляется при прокрутке вниз */
+(function(){
+  var btn=document.querySelector('.to-top');
+  if(!btn)return;
+  function upd(){ if(window.pageYOffset>500){btn.classList.add('is-visible');}else{btn.classList.remove('is-visible');} }
+  window.addEventListener('scroll',upd,{passive:true});
+  btn.addEventListener('click',function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  upd();
+})();

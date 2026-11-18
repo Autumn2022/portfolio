@@ -7,6 +7,8 @@
   --card:#fdfdfd;
   --ink:#1d2023;
   --accent:#8367ff;
+  --font:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-head:'Unbounded',system-ui,sans-serif;
   color-scheme:dark;
 }
 :root[data-theme="light"]{
@@ -19,7 +21,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;transition:background-color .3s,color .3s}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-weight:400;-webkit-font-smoothing:antialiased;transition:background-color .3s,color .3s}
+/* заголовки-дисплей: Unbounded */
+.title,.contacts__head,.pp__title,.pp__body h2,.pp__body h3,.pv2 .h2 b,.pv2 .sec h2,.pv2 .sec h3{font-family:var(--font-head);letter-spacing:-.01em}
 img{display:block}
 ul{list-style:none}
 a{color:inherit;text-decoration:none}
@@ -398,3 +402,72 @@ a.btn:hover{opacity:.85;transform:translateY(-1px)}
   .pp--v3.pp--p20 .pv2 .fig{margin-left:-12px;margin-right:-12px}
   .pp--v3.pp--p20 .pv2 .fig figcaption{padding:0 12px}
 }
+
+/* ===== МТС Профиль v4: нарративная структура ===== */
+.pp--v4 .pv4{display:flex;flex-direction:column;gap:40px;margin-top:0}
+/* горизонтальный дивайдер между секциями */
+.pp--v4 .pv4-div{width:100%;height:1px;background:rgba(127,140,153,.35);margin:16px 0}
+.pp--v4 .pv4 .sec{display:flex;flex-direction:column;gap:24px}
+/* заголовок проекта */
+.pv4__title{display:flex;flex-direction:column;gap:4px}
+.pv4__num{display:flex;justify-content:space-between;font-size:14px;line-height:20px;color:var(--text-2);text-transform:uppercase}
+.pv4__title h2{font-family:var(--font-head);font-size:24px;line-height:28px;font-weight:600;color:var(--text);letter-spacing:-.01em;margin:0}
+.pv4__sub{font-size:17px;line-height:24px;color:var(--text-2)}
+/* абзац с заголовком */
+.pv4 .pwt{display:flex;flex-direction:column;gap:8px}
+.pv4 .pwt.g4{gap:4px}
+.pv4 .pwt h3{font-family:var(--font-head);font-size:20px;line-height:24px;font-weight:600;color:var(--text);letter-spacing:-.01em;margin:0}
+.pv4 .pwt h4{font-family:var(--font-head);font-size:17px;line-height:24px;font-weight:600;color:var(--text);margin:0}
+.pv4 .pwt p{font-size:17px;line-height:24px;color:var(--text-2)}
+.pv4 .pwt p+p{margin-top:16px}
+.pv4 .pwt .hl{color:var(--text)}
+/* списки */
+.pv4 ol.nl2{list-style:decimal;margin:0;padding-left:26px;color:var(--text-2);display:flex;flex-direction:column;gap:8px}
+.pv4 ol.nl2>li{font-size:17px;line-height:24px}
+.pv4 ol.nl2>li::marker{color:var(--text-2)}
+.pv4 ul.bl2{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.pv4 ul.bl2>li{display:flex;gap:12px;font-size:17px;line-height:24px;color:var(--text-2)}
+.pv4 ul.bl2>li .hl{color:var(--text)}
+/* интро pp--v4: 24 между текстами, 40 до картинки */
+.pp--v4 .pp__body .props{margin:8px 0}
+.pp--v4 .pp__hero{margin-top:8px}
+.pv4 ul.bl2>li::before{content:"";flex:none;width:8px;height:24px;background:radial-gradient(circle at 50% 50%,#2e7cd1 0 4px,transparent 4.5px)}
+/* тёмные карточки */
+.pv4 .dcards{display:grid;gap:20px;align-items:start}
+.pv4 .dcards--2{grid-template-columns:1fr 1fr}
+.pv4 .dcards--3{grid-template-columns:repeat(3,1fr)}
+.pv4 .dcard{background:#1d2023;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:4px}
+.pv4 .dcard h4{font-family:var(--font-head);font-size:17px;line-height:24px;font-weight:600;color:#fff;margin:0}
+.pv4 .dcard p{font-size:17px;line-height:24px;color:#969fa8}
+/* картинки */
+.pv4 .fig{display:flex;flex-direction:column;gap:8px;margin:0}
+.pv4 .fig__card{width:100%;background:#fdfdfd;border-radius:20px;overflow:hidden;display:block}
+.pv4 .fig__card img{display:block;width:100%;height:auto}
+.pv4 .fig figcaption{font-size:14px;line-height:20px;color:var(--text-2);text-align:center}
+:root[data-theme="light"] .pv4 .fig__card{box-shadow:0 0 0 1px rgba(29,32,35,.1)}
+.pv4 .imgrow{display:flex;gap:24px;align-items:flex-start;width:100%}
+.pv4 .imgrow .fig{flex:1 1 0;min-width:0}
+/* герой-картинка без карточки */
+.pp--v4 .pp__hero .fig{gap:8px}
+.pp--v4 .pp__hero img{width:100%;height:auto;border-radius:20px;display:block}
+.pp--v4 .pp__hero figcaption{font-size:14px;line-height:20px;color:var(--text-2);text-align:center}
+/* мобилка: картинки 8px по бокам, ряды в столбик */
+@media (max-width:899px){
+  .pp--v4.pp--p20 .pv4 .fig{margin-left:-12px;margin-right:-12px}
+  .pp--v4.pp--p20 .pv4 .fig figcaption{padding:0 12px}
+  .pp--v4.pp--p20 .pv4 .imgrow{flex-direction:column;gap:24px}
+  .pp--v4.pp--p20 .pv4 .imgrow .fig{margin-left:-12px;margin-right:-12px;width:auto}
+  .pv4 .dcards--2,.pv4 .dcards--3{grid-template-columns:1fr}
+}
+
+/* pv4: результаты-чеклист (зелёная галочка + серый текст) */
+.pv4 .clist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.pv4 .clist>li{display:flex;gap:8px;align-items:flex-start;font-size:17px;line-height:24px;color:var(--text-2)}
+.pv4 .clist svg{flex:none;width:24px;height:24px;display:block}
+.pv4 .pwt .note{font-size:17px;line-height:24px;color:var(--text-2)}
+/* кнопка «наверх» */
+.to-top{position:fixed;right:24px;bottom:24px;width:48px;height:48px;border-radius:50%;background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;border:1px solid rgba(188,195,208,.3);box-shadow:0 6px 20px rgba(0,0,0,.28);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease,visibility .25s;z-index:60;cursor:pointer}
+.to-top.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.to-top:hover{background:#fff}
+.to-top svg{width:24px;height:24px}
+@media (max-width:600px){.to-top{right:16px;bottom:16px;width:44px;height:44px}}
